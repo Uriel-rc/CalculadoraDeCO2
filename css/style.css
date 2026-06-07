@@ -1,0 +1,298 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E PALETA DE CORES (NATUREZA & ALERTAS)
+   ========================================================================== */
+:root {
+  /* Cores da Natureza (Tema Ambiental) */
+  --color-primary-dark: #0b3c1b;   /* Verde Musgo Profundo: Mais escuro e saturado para garantir excelente contraste em textos */
+  --color-primary: #1ebd64;        /* Verde Folha Tropical: Um tom super vivo, energético e moderno para botões e destaques */
+  --color-primary-light: #c1ebd0;  /* Broto de Bambu: Um verde claro bem alegre e fresco, perfeito para fundos de foco e alertas */
+  --color-bg-page: #ccebc1;        /* Brisa da Manhã: Um fundo off-white com um toque sutil de verde limpo e radiante */
+  /* Tons Neutros */
+  --color-neutral-white: #ffffff;
+  --color-neutral-100: #f8f9fa;
+  --color-neutral-300: #dee2e6;    /* Bordas padrão e estados desabilitados */
+  --color-neutral-600: #6c757d;    /* Textos secundários / placeholders */
+  --color-neutral-900: #212529;    /* Texto principal */
+
+  /* Cores de Alerta / Estado */
+  --color-alert-danger: #d90429;   /* Vermelho atenção (alta emissão / erros) */
+  --color-alert-warning: #ffb703;  /* Amarelo/Laranja (média emissão) */
+  --color-info-disabled: #e9ecef;  /* Fundo de campos readonly/disabled */
+
+  /* Estrutura e Efeitos */
+  --radius-default: 12px;
+  --radius-small: 8px;
+  --shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(45, 106, 79, 0.3);
+  --transition-fast: 0.2s ease;
+  --max-width-content: 800px;
+}
+
+/* Reset básico */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg-page);
+  color: var(--color-neutral-900);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   LAYOUT GERAL (HEADER, MAIN, FOOTER)
+   ========================================================================== */
+.header, 
+.main, 
+.footer {
+  width: 100%;
+  max-width: var(--max-width-content);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.header__title {
+  color: var(--color-primary-dark);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header__subtitle {
+  color: var(--color-neutral-600);
+  font-size: 1.1rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaçamento entre o form e as seções de resultado */
+}
+
+.footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 3rem;
+  color: var(--color-neutral-600);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DOS CONTAINERS (ESTILO BASE)
+   ========================================================================== */
+.form-section,
+.results-section,
+.comparison-section,
+.credits-section {
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-default);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-subtle);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.form-section__title,
+.results-section__title,
+.comparison-section__title,
+.credits-section__title {
+  color: var(--color-primary-dark);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: 0.5rem;
+}
+
+/* Utilitário para esconder seções que iniciam ocultas */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   FORMULÁRIO & INPUTS
+   ========================================================================== */
+.form-section__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section__label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-neutral-900);
+}
+
+/* Inputs de Texto e Número */
+.form-section__input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-small);
+  font-size: 1rem;
+  color: var(--color-neutral-900);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+/* Estado: Foco (Quando o usuário clica/digita no campo) */
+.form-section__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  background-color: var(--color-neutral-white);
+}
+
+/* Estado: Editável Dinâmico (Removendo estilos de bloqueio caso mude via JS) */
+.form-section__input:not([readonly]):focus {
+  background-color: #fff;
+}
+
+/* Estado: Não Editável (Readonly / Disabled) */
+.form-section__input[readonly] {
+  background-color: var(--color-info-disabled);
+  border-color: var(--color-neutral-300);
+  color: var(--color-neutral-600);
+  cursor: not-allowed;
+}
+
+/* Checkbox Manual */
+.form-section__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  font-weight: 500;
+  user-select: none;
+  align-self: flex-start; /* Impede que a área clicável estique por toda a linha */
+}
+
+.form-section__checkbox-input {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--color-primary); /* Aplica a cor do tema no checkbox nativo */
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   RADIO BUTTONS EM CARDS (LADO A LADO)
+   ========================================================================== */
+.form-section__fieldset {
+  border: none;
+  margin-bottom: 2.5rem;
+}
+
+.form-section__legend {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-neutral-900);
+}
+
+/* Container dos Cards: Alinhados horizontalmente sem quebra */
+.form-section__fieldset {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto; /* Permite rolagem horizontal se a tela for muito pequena */
+  padding-bottom: 0.5rem; /* Margem de respiro para a barra de rolagem */
+  scrollbar-width: thin; /* Estilização suave para navegadores modernos */
+}
+
+/* Esconde o input radio nativo mas mantém ele acessível para navegadores/leitores de tela */
+.form-section__radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* O Label estilizado como Card */
+.form-section__radio {
+  flex: 1 0 calc(25% - 0.75rem); /* Ocupa espaço igual distribuído no Desktop */
+  min-width: 120px; /* Garante tamanho mínimo para leitura em telas menores */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 1rem;
+  background-color: var(--color-neutral-100);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+/* Card: Efeito de Hover (Passar o mouse) */
+.form-section__radio:hover {
+  border-color: var(--color-primary-light);
+  background-color: rgba(216, 243, 220, 0.3);
+}
+
+/* Card: Selecionado (Baseado no estado do input interno :checked) */
+.form-section__radio:has(.form-section__radio-input:checked) {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.15);
+}
+
+/* Card: Estado de Foco por teclado (Acessibilidade via tecla TAB) */
+.form-section__radio:has(.form-section__radio-input:focus-visible) {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   BOTÃO DE SUBMIT
+   ========================================================================== */
+.form-section__button {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-white);
+  border: none;
+  border-radius: var(--radius-small);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(45, 106, 79, 0.2);
+}
+
+.form-section__button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.form-section__button:active {
+  transform: scale(0.98);
+}
+
+.form-section__button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ==========================================================================
+   CONTEÚDO DINÂMICO (Para os resultados inseridos via JS)
+   ========================================================================== */
+.results-section__content,
+.comparison-section__content,
+.credits-section__content {
+  font-size: 1.1rem;
+  color: var(--color-neutral-900);
+}
+
+/* Dica de futuras estilizações para o JS injetar cores de alerta conforme o resultado: */
+.text-danger { color: var(--color-alert-danger); font-weight: bold; }
+.text-warning { color: var(--color-alert-warning); font-weight: bold; }
+.text-success { color: var(--color-primary); font-weight: bold; }
